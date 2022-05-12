@@ -39,11 +39,28 @@ export interface LogDNAhttpLoggerOptions {
   /**
    * Function to transform request object before it's added to log meta
    */
-  reqMetaTransform?: (req: Request) => any;
+  reqMetaTransform?: (req: Request, defaultTransform: defaultReqTransform) => any;
   /**
    * Function to transform response object before it's added to log meta
    */
-  resMetaTransform?: (res: Response) => any;
+  resMetaTransform?: (res: Response, defaultTransform: defaultResTransform) => any;
+}
+
+export interface defaultReqTransform {
+  protocol: string;
+  ip?: string;
+  path: string;
+  params?: Object;
+  method: string;
+  headers?: Object;
+  body?: Object;
+}
+
+export interface defaultResTransform {
+  statusCode: number;
+  statusMessage?: string;
+  headers?: Object;
+  body?: Object;
 }
 
 export interface LogDNAhttpExceptionLoggerOptions {

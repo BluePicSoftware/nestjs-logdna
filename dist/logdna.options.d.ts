@@ -18,8 +18,23 @@ export interface LogDNAModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'
 export interface LogDNAhttpLoggerOptions {
     filter?: (req: Request, res: Response) => boolean;
     messageFormat?: (req: Request, res: Response) => string;
-    reqMetaTransform?: (req: Request) => any;
-    resMetaTransform?: (res: Response) => any;
+    reqMetaTransform?: (req: Request, defaultTransform: defaultReqTransform) => any;
+    resMetaTransform?: (res: Response, defaultTransform: defaultResTransform) => any;
+}
+export interface defaultReqTransform {
+    protocol: string;
+    ip?: string;
+    path: string;
+    params?: Object;
+    method: string;
+    headers?: Object;
+    body?: Object;
+}
+export interface defaultResTransform {
+    statusCode: number;
+    statusMessage?: string;
+    headers?: Object;
+    body?: Object;
 }
 export interface LogDNAhttpExceptionLoggerOptions {
     generateReference?: boolean;

@@ -21,15 +21,14 @@ let LogDNAService = LogDNAService_1 = class LogDNAService {
     constructor(options) {
         this.options = options;
         if (!options) {
-            console.log('options not found. Did you use LogDNAModule.forRoot?');
             return;
         }
         if (!options.logDNAOptions)
             options.logDNAOptions = {};
         if (!options.logDNAOptions.levels)
             options.logDNAOptions.levels = [];
-        options.logDNAOptions.levels.push('verbose', 'http');
-        this.logDNAinstance = (0, logger_1.createLogger)(options.ingestionKey, options.logDNAOptions);
+        options.logDNAOptions.levels.push('info', 'error', 'warn', 'debug', 'verbose', 'http');
+        LogDNAService_1.logDNAinstance = (0, logger_1.createLogger)(options.ingestionKey, options.logDNAOptions);
     }
     static LogDNAServiceInstance() {
         if (!LogDNAService_1.serviceInstance) {
@@ -38,48 +37,66 @@ let LogDNAService = LogDNAService_1 = class LogDNAService {
         return LogDNAService_1.serviceInstance;
     }
     log(message, ...optionalParams) {
-        this.logDNAinstance.log(JSON.stringify(message), {
-            timestamp: Date.now(),
-            meta: Object.assign({}, ...optionalParams),
-        });
+        try {
+            LogDNAService_1.logDNAinstance.log(JSON.stringify(message), {
+                timestamp: Date.now(),
+                meta: Object.assign({}, ...optionalParams),
+            });
+        }
+        catch (_a) { }
     }
     error(message, ...optionalParams) {
-        this.logDNAinstance.log(JSON.stringify(message), {
-            timestamp: Date.now(),
-            meta: Object.assign({}, ...optionalParams),
-            level: logger_1.LogLevel.error,
-        });
+        try {
+            LogDNAService_1.logDNAinstance.log(JSON.stringify(message), {
+                timestamp: Date.now(),
+                meta: Object.assign({}, ...optionalParams),
+                level: 'error',
+            });
+        }
+        catch (_a) { }
     }
     warn(message, ...optionalParams) {
-        this.logDNAinstance.log(JSON.stringify(message), {
-            timestamp: Date.now(),
-            meta: Object.assign({}, ...optionalParams),
-            level: logger_1.LogLevel.warn,
-        });
+        try {
+            LogDNAService_1.logDNAinstance.log(JSON.stringify(message), {
+                timestamp: Date.now(),
+                meta: Object.assign({}, ...optionalParams),
+                level: 'warn',
+            });
+        }
+        catch (_a) { }
     }
     debug(message, ...optionalParams) {
-        this.logDNAinstance.log(JSON.stringify(message), {
-            timestamp: Date.now(),
-            meta: Object.assign({}, ...optionalParams),
-            level: logger_1.LogLevel.debug,
-        });
+        try {
+            LogDNAService_1.logDNAinstance.log(JSON.stringify(message), {
+                timestamp: Date.now(),
+                meta: Object.assign({}, ...optionalParams),
+                level: 'debug',
+            });
+        }
+        catch (_a) { }
     }
     verbose(message, ...optionalParams) {
-        this.logDNAinstance.log(JSON.stringify(message), {
-            timestamp: Date.now(),
-            meta: Object.assign({}, ...optionalParams),
-            level: 'verbose',
-        });
+        try {
+            LogDNAService_1.logDNAinstance.log(JSON.stringify(message), {
+                timestamp: Date.now(),
+                meta: Object.assign({}, ...optionalParams),
+                level: 'verbose',
+            });
+        }
+        catch (_a) { }
     }
     http(message, req, res) {
-        this.logDNAinstance.log(JSON.stringify(message), {
-            timestamp: Date.now(),
-            meta: {
-                request: req,
-                response: res,
-            },
-            level: 'http',
-        });
+        try {
+            LogDNAService_1.logDNAinstance.log(JSON.stringify(message), {
+                timestamp: Date.now(),
+                meta: {
+                    request: req,
+                    response: res,
+                },
+                level: 'http',
+            });
+        }
+        catch (_a) { }
     }
 };
 LogDNAService = LogDNAService_1 = __decorate([

@@ -1,4 +1,4 @@
-import { createLogger, Logger, LogLevel } from '@logdna/logger';
+import { createLogger, Logger } from '@logdna/logger';
 import { Inject, Injectable } from '@nestjs/common';
 import { LoggerService } from '@nestjs/common';
 import { LOGDNA_MODULE_OPTIONS } from './logdna.constants';
@@ -6,22 +6,21 @@ import { LogDNAModuleOptions } from './logdna.options';
 
 @Injectable()
 export class LogDNAService implements LoggerService {
-  private logDNAinstance!: Logger;
+  private static logDNAinstance: Logger;
   private static serviceInstance: LogDNAService;
 
   constructor(
     @Inject(LOGDNA_MODULE_OPTIONS) readonly options?: LogDNAModuleOptions
   ) {
     if (!options) {
-      console.log('options not found. Did you use LogDNAModule.forRoot?');
       return;
     }
     //inject custom level 'verbose' and 'http'
     if (!options.logDNAOptions) options.logDNAOptions = {};
     if (!options.logDNAOptions.levels) options.logDNAOptions.levels = [];
-    options.logDNAOptions.levels.push('verbose', 'http');
+    options.logDNAOptions.levels.push('info', 'error', 'warn', 'debug', 'verbose', 'http');
     //instantiate logger
-    this.logDNAinstance = createLogger(
+    LogDNAService.logDNAinstance = createLogger(
       options.ingestionKey,
       options.logDNAOptions
     );
@@ -35,52 +34,64 @@ export class LogDNAService implements LoggerService {
   }
 
   log(message: any, ...optionalParams: any[]) {
-    this.logDNAinstance.log(JSON.stringify(message), {
-      timestamp: Date.now(),
-      meta: Object.assign({}, ...optionalParams),
-    });
+    try {
+      LogDNAService.logDNAinstance.log(JSON.stringify(message), {
+        timestamp: Date.now(),
+        meta: Object.assign({}, ...optionalParams),
+      });
+    } catch {}
   }
 
   error(message: any, ...optionalParams: any[]) {
-    this.logDNAinstance.log(JSON.stringify(message), {
-      timestamp: Date.now(),
-      meta: Object.assign({}, ...optionalParams),
-      level: LogLevel.error,
-    });
+    try {
+      LogDNAService.logDNAinstance.log(JSON.stringify(message), {
+        timestamp: Date.now(),
+        meta: Object.assign({}, ...optionalParams),
+        level: 'error',
+      });
+    } catch {}
   }
 
   warn(message: any, ...optionalParams: any[]) {
-    this.logDNAinstance.log(JSON.stringify(message), {
-      timestamp: Date.now(),
-      meta: Object.assign({}, ...optionalParams),
-      level: LogLevel.warn,
-    });
+    try {
+      LogDNAService.logDNAinstance.log(JSON.stringify(message), {
+        timestamp: Date.now(),
+        meta: Object.assign({}, ...optionalParams),
+        level: 'warn',
+      });
+    } catch {}
   }
 
   debug(message: any, ...optionalParams: any[]) {
-    this.logDNAinstance.log(JSON.stringify(message), {
-      timestamp: Date.now(),
-      meta: Object.assign({}, ...optionalParams),
-      level: LogLevel.debug,
-    });
+    try {
+      LogDNAService.logDNAinstance.log(JSON.stringify(message), {
+        timestamp: Date.now(),
+        meta: Object.assign({}, ...optionalParams),
+        level: 'debug',
+      });
+    } catch {}
   }
 
   verbose(message: any, ...optionalParams: any[]) {
-    this.logDNAinstance.log(JSON.stringify(message), {
-      timestamp: Date.now(),
-      meta: Object.assign({}, ...optionalParams),
-      level: 'verbose',
-    });
+    try {
+      LogDNAService.logDNAinstance.log(JSON.stringify(message), {
+        timestamp: Date.now(),
+        meta: Object.assign({}, ...optionalParams),
+        level: 'verbose',
+      });
+    } catch {}
   }
 
   http(message: any, req: any, res: any) {
-    this.logDNAinstance.log(JSON.stringify(message), {
-      timestamp: Date.now(),
-      meta: {
-        request: req,
-        response: res,
-      },
-      level: 'http',
-    });
+    try {
+      LogDNAService.logDNAinstance.log(JSON.stringify(message), {
+        timestamp: Date.now(),
+        meta: {
+          request: req,
+          response: res,
+        },
+        level: 'http',
+      });
+    } catch {}
   }
 }

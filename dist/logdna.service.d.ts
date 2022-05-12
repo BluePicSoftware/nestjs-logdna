@@ -2,7 +2,7 @@ import { LoggerService } from '@nestjs/common';
 import { LogDNAModuleOptions } from './logdna.options';
 export declare class LogDNAService implements LoggerService {
     readonly options?: LogDNAModuleOptions | undefined;
-    private logDNAinstance;
+    private static logDNAinstance;
     private static serviceInstance;
     constructor(options?: LogDNAModuleOptions | undefined);
     static LogDNAServiceInstance(): LogDNAService;
