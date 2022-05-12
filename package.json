@@ -1,73 +1,39 @@
 {
-  "contributors": [
-    {
-      "name": "Dexter Hardy",
-      "email": "dexter.hardy@ntegral.com",
-      "url": "http://www.ntegral.com"
-    }
-  ],
-  "name": "@ntegral/nestjs-sentry",
-  "version": "3.0.7",
-  "description": "Provides an injectable sentry.io client to provide enterprise logging nestjs modules",
+  "name": "@bluepic/logdna-nestjs",
+  "version": "0.2.1",
+  "description": "Provides an injectable LogDNA client for logging in nestjs modules",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ntegral/nestjs-sentry"
+    "url": "git+https://github.com/BluePicSoftware/nestjs-logdna"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
-    "clean": "rm -rf dist",
-    "format": "prettier --write \"lib/**/*.ts\"",
-    "publish:npm": "npm publish --access public",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "prepublish": "npm run build",
+    "publish": "npm publish --access public"
   },
   "keywords": [
     "nestjs",
-    "sentry.io"
+    "logdna"
   ],
-  "author": "Dexter Hardy",
+  "author": "Lukas Wicke",
   "license": "ISC",
   "peerDependencies": {
+    "@logdna/logger": "^2.6.4",
     "@nestjs/common": "^8.0.2",
     "@nestjs/core": "^8.0.2",
-    "@sentry/node": "^6.9.0",
-    "@sentry/hub": "^6.16.1",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
   },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "lib",
-    "testRegex": ".spec.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
-  },
   "devDependencies": {
-    "@nestjs/testing": "^8.0.0",
-    "@types/jest": "27.0.2",
+    "@types/express": "^4.17.13",
     "@types/node": "^16.3.1",
-    "@types/supertest": "^2.0.11",
-    "codecov": "^3.8.2",
-    "jest": "^27.2.5",
-    "prettier": "^2.3.2",
-    "supertest": "^6.1.3",
-    "ts-jest": "^27.0.3",
-    "tsconfig-paths": "^3.10.1",
+    "@types/uuid": "^8.3.4",
+    "rimraf": "^3.0.2",
     "typescript": "^4.5.4"
   },
-  "optionalDependencies": {
-    "@nestjs/graphql": "^8.0.2 || ^9.0.4"
+  "dependencies": {
+    "uuid": "^8.3.2"
   }
 }

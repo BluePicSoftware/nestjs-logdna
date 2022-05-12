@@ -1,4 +1,5 @@
-Copyright (c) 2019, Ntegral Inc. c/o Dexter Hardy
+Copyright for portions of project @bluepic/nestjs-logdna are held by Ntegral Inc. c/o Dexter Hardy, 2019 as part of project ntegral/nestjs-sentry. 
+All other copyright for project @bluepic/nestjs-logdna are held by Lukas Wicke, 2022.
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
