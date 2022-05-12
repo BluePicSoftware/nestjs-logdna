@@ -1,6 +1,6 @@
 {
   "name": "@bluepic/logdna-nestjs",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Provides an injectable LogDNA client for logging in nestjs modules",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
