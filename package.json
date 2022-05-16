@@ -1,6 +1,6 @@
 {
   "name": "@bluepic/logdna-nestjs",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Provides an injectable LogDNA client for logging in nestjs modules",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -34,7 +34,6 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@supercharge/request-ip": "^1.2.0",
-    "uuid": "^8.3.2"
+    "@supercharge/request-ip": "^1.2.0"
   }
 }
