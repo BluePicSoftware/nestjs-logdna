@@ -63,7 +63,8 @@ function resDTO(res: Response, body: any): defaultResTransform {
     statusCode: res.statusCode,
     statusMessage: res.statusMessage,
     headers: res.getHeaders(),
-    body
+    locals: res.locals,
+    body,
   }
 }
 

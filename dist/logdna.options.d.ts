@@ -34,6 +34,7 @@ export interface defaultResTransform {
     statusCode: number;
     statusMessage?: string;
     headers?: Object;
+    locals?: Object;
     body?: Object;
 }
 export interface LogDNAhttpExceptionLoggerOptions {

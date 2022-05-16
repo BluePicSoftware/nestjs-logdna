@@ -57,7 +57,8 @@ function resDTO(res, body) {
         statusCode: res.statusCode,
         statusMessage: res.statusMessage,
         headers: res.getHeaders(),
-        body
+        locals: res.locals,
+        body,
     };
 }
 function safeJSONParse(input) {
