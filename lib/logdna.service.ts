@@ -15,7 +15,6 @@ export class LogDNAService implements LoggerService {
     if (!options) {
       return;
     }
-    //inject custom level 'verbose' and 'http'
     if (!options.logDNAOptions) options.logDNAOptions = {};
     if (!options.logDNAOptions.levels) options.logDNAOptions.levels = [];
     options.logDNAOptions.levels.push('info', 'error', 'warn', 'debug', 'verbose', 'http');
