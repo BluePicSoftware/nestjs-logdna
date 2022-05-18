@@ -23,4 +23,3 @@ __exportStar(require("./logdna.options"), exports);
 __exportStar(require("./logdna.decorator"), exports);
 __exportStar(require("./logdna.middleware"), exports);
 __exportStar(require("./logdna.filter"), exports);
-//# sourceMappingURL=index.js.map

@@ -69,4 +69,3 @@ function safeJSONParse(input) {
         return input;
     }
 }
-//# sourceMappingURL=logdna.middleware.js.map

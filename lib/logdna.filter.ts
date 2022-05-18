@@ -14,7 +14,7 @@ export class LogDNAhttpExceptionLogger {
     const req = ctx.getRequest<Request>();
     const res = ctx.getResponse<Response>();
     if(!(this.options?.filter?.(ex, req, res) ?? true)) {
-      return res.status(ex.getStatus() ?? 500).json({
+      return res.status(ex.getStatus?.() ?? 500).json({
         message: ex.message
       })
     }
@@ -32,7 +32,7 @@ export class LogDNAhttpExceptionLogger {
       this.options?.exceptionMetaTransform?.(ex, req, res) ?? 
       ex;
     LogDNAService.LogDNAServiceInstance().error(msg, meta);
-    return res.status(ex.getStatus() ?? 500).json({
+    return res.status(ex.getStatus?.() ?? 500).json({
       message: ex.message,
       ref: ref
     })

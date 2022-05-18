@@ -18,26 +18,26 @@ let LogDNAhttpExceptionLogger = class LogDNAhttpExceptionLogger {
         this.options = options;
     }
     catch(ex, host) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
         const ctx = host.switchToHttp();
         const req = ctx.getRequest();
         const res = ctx.getResponse();
         if (!((_c = (_b = (_a = this.options) === null || _a === void 0 ? void 0 : _a.filter) === null || _b === void 0 ? void 0 : _b.call(_a, ex, req, res)) !== null && _c !== void 0 ? _c : true)) {
-            return res.status((_d = ex.getStatus()) !== null && _d !== void 0 ? _d : 500).json({
+            return res.status((_e = (_d = ex.getStatus) === null || _d === void 0 ? void 0 : _d.call(ex)) !== null && _e !== void 0 ? _e : 500).json({
                 message: ex.message
             });
         }
-        let msg = (_g = (_f = (_e = this.options) === null || _e === void 0 ? void 0 : _e.messageFormat) === null || _f === void 0 ? void 0 : _f.call(_e, ex, req, res)) !== null && _g !== void 0 ? _g : `[${ex.name}]`;
+        let msg = (_h = (_g = (_f = this.options) === null || _f === void 0 ? void 0 : _f.messageFormat) === null || _g === void 0 ? void 0 : _g.call(_f, ex, req, res)) !== null && _h !== void 0 ? _h : `[${ex.name}]`;
         let ref;
-        if ((_h = this.options) === null || _h === void 0 ? void 0 : _h.generateReference) {
+        if ((_j = this.options) === null || _j === void 0 ? void 0 : _j.generateReference) {
             ref = (0, crypto_1.randomBytes)(20).toString('base64url');
             const appendix = ` Error: ${ref}`;
             msg += appendix;
             res.locals.errorRef = ref;
         }
-        const meta = (_l = (_k = (_j = this.options) === null || _j === void 0 ? void 0 : _j.exceptionMetaTransform) === null || _k === void 0 ? void 0 : _k.call(_j, ex, req, res)) !== null && _l !== void 0 ? _l : ex;
+        const meta = (_m = (_l = (_k = this.options) === null || _k === void 0 ? void 0 : _k.exceptionMetaTransform) === null || _l === void 0 ? void 0 : _l.call(_k, ex, req, res)) !== null && _m !== void 0 ? _m : ex;
         logdna_service_1.LogDNAService.LogDNAServiceInstance().error(msg, meta);
-        return res.status((_m = ex.getStatus()) !== null && _m !== void 0 ? _m : 500).json({
+        return res.status((_p = (_o = ex.getStatus) === null || _o === void 0 ? void 0 : _o.call(ex)) !== null && _p !== void 0 ? _p : 500).json({
             message: ex.message,
             ref: ref
         });
@@ -48,4 +48,3 @@ LogDNAhttpExceptionLogger = __decorate([
     __metadata("design:paramtypes", [Object])
 ], LogDNAhttpExceptionLogger);
 exports.LogDNAhttpExceptionLogger = LogDNAhttpExceptionLogger;
-//# sourceMappingURL=logdna.filter.js.map

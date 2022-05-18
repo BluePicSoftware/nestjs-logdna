@@ -83,4 +83,3 @@ LogDNACoreModule = LogDNACoreModule_1 = __decorate([
     (0, common_1.Module)({})
 ], LogDNACoreModule);
 exports.LogDNACoreModule = LogDNACoreModule;
-//# sourceMappingURL=logdna-core.module.js.map
