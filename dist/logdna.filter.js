@@ -48,3 +48,4 @@ LogDNAhttpExceptionLogger = __decorate([
     __metadata("design:paramtypes", [Object])
 ], LogDNAhttpExceptionLogger);
 exports.LogDNAhttpExceptionLogger = LogDNAhttpExceptionLogger;
+//# sourceMappingURL=logdna.filter.js.map

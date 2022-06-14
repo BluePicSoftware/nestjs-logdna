@@ -28,3 +28,4 @@ LogDNAModule = LogDNAModule_1 = __decorate([
     (0, common_1.Module)({})
 ], LogDNAModule);
 exports.LogDNAModule = LogDNAModule;
+//# sourceMappingURL=logdna.module.js.map

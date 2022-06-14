@@ -13,7 +13,6 @@ export function LogDNAhttpLogger(options: LogDNAhttpLoggerOptions) {
       const duration = Date.now() - begin;
 
       res.end = end;
-      // @ts-expect-error
       res.end(chunk, encoding);
 
       if (!(options?.filter?.(req, res) ?? true)) {

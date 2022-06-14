@@ -105,3 +105,4 @@ LogDNAService = LogDNAService_1 = __decorate([
     __metadata("design:paramtypes", [Object])
 ], LogDNAService);
 exports.LogDNAService = LogDNAService;
+//# sourceMappingURL=logdna.service.js.map

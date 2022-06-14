@@ -1,6 +1,6 @@
 {
   "name": "@bluepic/logdna-nestjs",
-  "version": "0.2.5",
+  "version": "0.2.7",
   "description": "Provides an injectable LogDNA client for logging in nestjs modules",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -19,21 +19,18 @@
   ],
   "author": "Lukas Wicke",
   "license": "ISC",
-  "peerDependencies": {
-    "@logdna/logger": "^2.6.4",
-    "@nestjs/common": "^8.0.2",
-    "@nestjs/core": "^8.0.2",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
-  },
   "devDependencies": {
     "@types/express": "^4.17.13",
     "@types/node": "^16.3.1",
-    "@types/uuid": "^8.3.4",
     "rimraf": "^3.0.2",
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@supercharge/request-ip": "^1.2.0"
+    "@logdna/logger": "^2.6.5",
+    "@nestjs/common": "^8.4.7",
+    "@nestjs/core": "^8.4.7",
+    "@supercharge/request-ip": "^1.2.0",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.5.5"
   }
 }
