@@ -26,13 +26,15 @@ export class LogDNAhttpExceptionLogger {
       ref = randomBytes(20).toString('base64url');
       const appendix = ` Error: ${ref}`;
       msg += appendix;
+      // fastify shim
+      if(!res.locals) res.locals = {};
       res.locals.errorRef = ref;
     }
     const meta = 
       this.options?.exceptionMetaTransform?.(ex, req, res) ?? 
       ex;
     LogDNAService.LogDNAServiceInstance().error(msg, meta);
-    return res.status(ex.getStatus?.() ?? 500).json({
+    return res.status(ex.getStatus?.() ?? 500).send({
       message: ex.message,
       ref: ref
     })
