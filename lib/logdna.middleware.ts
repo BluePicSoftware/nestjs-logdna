@@ -23,7 +23,7 @@ export function LogDNAhttpLogger(options: LogDNAhttpLoggerOptions) {
       let msg =
         options?.messageFormat?.(req, res) ??
         `[${method}] ${path} ${statusCode} ${duration}ms`;
-      if(res.locals.errorRef) {
+      if(res.locals?.errorRef) {
         msg += ` Error: ${res.locals.errorRef}`;
       }
       let body;
