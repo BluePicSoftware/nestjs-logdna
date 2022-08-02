@@ -6,7 +6,7 @@ import { getClientIp } from '@supercharge/request-ip';
 export function LogDNAhttpLogger(options: LogDNAhttpLoggerOptions) {
   return function(req: Request, res: Response, next: NextFunction) {
     const begin = Date.now();
-    const { method, path } = req;
+    const { method, url } = req;
     var end = res.end;
     // @ts-expect-error
     res.end = function (chunk, encoding) {
@@ -22,7 +22,7 @@ export function LogDNAhttpLogger(options: LogDNAhttpLoggerOptions) {
       const { statusCode } = res;
       let msg =
         options?.messageFormat?.(req, res) ??
-        `[${method}] ${path} ${statusCode} ${duration}ms`;
+        `[${method}] ${url} ${statusCode} ${duration}ms`;
       if(res.locals?.errorRef) {
         msg += ` Error: ${res.locals.errorRef}`;
       }
@@ -50,7 +50,7 @@ function reqDTO(req: Request): defaultReqTransform {
   return {
     protocol: req.protocol,
     ip: getClientIp(req),
-    path: req.path,
+    path: req.url,
     params: req.params,
     method: req.method,
     headers: req.headers,

@@ -6,7 +6,7 @@ const request_ip_1 = require("@supercharge/request-ip");
 function LogDNAhttpLogger(options) {
     return function (req, res, next) {
         const begin = Date.now();
-        const { method, path } = req;
+        const { method, url } = req;
         var end = res.end;
         res.end = function (chunk, encoding) {
             var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
@@ -17,7 +17,7 @@ function LogDNAhttpLogger(options) {
                 return;
             }
             const { statusCode } = res;
-            let msg = (_d = (_c = options === null || options === void 0 ? void 0 : options.messageFormat) === null || _c === void 0 ? void 0 : _c.call(options, req, res)) !== null && _d !== void 0 ? _d : `[${method}] ${path} ${statusCode} ${duration}ms`;
+            let msg = (_d = (_c = options === null || options === void 0 ? void 0 : options.messageFormat) === null || _c === void 0 ? void 0 : _c.call(options, req, res)) !== null && _d !== void 0 ? _d : `[${method}] ${url} ${statusCode} ${duration}ms`;
             if ((_e = res.locals) === null || _e === void 0 ? void 0 : _e.errorRef) {
                 msg += ` Error: ${res.locals.errorRef}`;
             }
@@ -45,7 +45,7 @@ function reqDTO(req) {
     return {
         protocol: req.protocol,
         ip: (0, request_ip_1.getClientIp)(req),
-        path: req.path,
+        path: req.url,
         params: req.params,
         method: req.method,
         headers: req.headers,
