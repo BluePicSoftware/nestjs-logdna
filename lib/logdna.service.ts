@@ -6,7 +6,7 @@ import { LogDNAModuleOptions } from './logdna.options';
 
 @Injectable()
 export class LogDNAService implements LoggerService {
-  private static logDNAinstance: Logger;
+  private static logDNAinstance: Logger | Console;
   private static serviceInstance: LogDNAService;
 
   constructor(
@@ -14,6 +14,13 @@ export class LogDNAService implements LoggerService {
   ) {
     if (!options) {
       return;
+    }
+    if (options.testMode) {
+      LogDNAService.logDNAinstance = console;
+      return;
+    }
+    if (!options.ingestionKey) {
+      throw new Error('LogDNA ingestion key is required');
     }
     if (!options.logDNAOptions) options.logDNAOptions = {};
     if (!options.logDNAOptions.levels) options.logDNAOptions.levels = [];

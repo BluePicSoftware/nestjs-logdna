@@ -23,6 +23,13 @@ let LogDNAService = LogDNAService_1 = class LogDNAService {
         if (!options) {
             return;
         }
+        if (options.testMode) {
+            LogDNAService_1.logDNAinstance = console;
+            return;
+        }
+        if (!options.ingestionKey) {
+            throw new Error('LogDNA ingestion key is required');
+        }
         if (!options.logDNAOptions)
             options.logDNAOptions = {};
         if (!options.logDNAOptions.levels)

@@ -3,8 +3,9 @@ import { ConstructorOptions } from '@logdna/logger';
 import { Request, Response } from 'express';
 export declare type LogLevel = 'info' | 'error' | 'warn' | 'debug' | 'verbose' | 'http';
 export interface LogDNAModuleOptions {
-    ingestionKey: string;
-    logDNAOptions: ConstructorOptions;
+    testMode?: boolean;
+    ingestionKey?: string;
+    logDNAOptions?: ConstructorOptions;
 }
 export interface LogDNAOptionsFactory {
     createLogDNAModuleOptions(): Promise<LogDNAModuleOptions> | LogDNAModuleOptions;

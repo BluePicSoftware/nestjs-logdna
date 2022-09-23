@@ -32,11 +32,12 @@ export class LogDNAhttpExceptionLogger {
     }
     const meta = 
       this.options?.exceptionMetaTransform?.(ex, req, res) ?? 
-      ex;
+      JSON.stringify(ex, null, 2);
     LogDNAService.LogDNAServiceInstance().error(msg, meta);
     return res.status(ex.getStatus?.() ?? 500).send({
       message: ex.message,
-      ref: ref
+      ref: ref,
+      exception: JSON.stringify(ex, null, 2),
     })
   }
 }

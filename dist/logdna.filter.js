@@ -37,11 +37,12 @@ let LogDNAhttpExceptionLogger = class LogDNAhttpExceptionLogger {
                 res.locals = {};
             res.locals.errorRef = ref;
         }
-        const meta = (_m = (_l = (_k = this.options) === null || _k === void 0 ? void 0 : _k.exceptionMetaTransform) === null || _l === void 0 ? void 0 : _l.call(_k, ex, req, res)) !== null && _m !== void 0 ? _m : ex;
+        const meta = (_m = (_l = (_k = this.options) === null || _k === void 0 ? void 0 : _k.exceptionMetaTransform) === null || _l === void 0 ? void 0 : _l.call(_k, ex, req, res)) !== null && _m !== void 0 ? _m : JSON.stringify(ex, null, 2);
         logdna_service_1.LogDNAService.LogDNAServiceInstance().error(msg, meta);
         return res.status((_p = (_o = ex.getStatus) === null || _o === void 0 ? void 0 : _o.call(ex)) !== null && _p !== void 0 ? _p : 500).send({
             message: ex.message,
-            ref: ref
+            ref: ref,
+            exception: JSON.stringify(ex, null, 2),
         });
     }
 };
