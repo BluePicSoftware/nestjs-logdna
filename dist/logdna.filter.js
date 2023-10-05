@@ -18,31 +18,35 @@ let LogDNAhttpExceptionLogger = class LogDNAhttpExceptionLogger {
         this.options = options;
     }
     catch(ex, host) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
+        if ((_a = ex.response) === null || _a === void 0 ? void 0 : _a.message) {
+            ex.message = (_b = ex.response) === null || _b === void 0 ? void 0 : _b.message;
+        }
         const ctx = host.switchToHttp();
         const req = ctx.getRequest();
         const res = ctx.getResponse();
-        if (!((_c = (_b = (_a = this.options) === null || _a === void 0 ? void 0 : _a.filter) === null || _b === void 0 ? void 0 : _b.call(_a, ex, req, res)) !== null && _c !== void 0 ? _c : true)) {
-            return res.status((_e = (_d = ex.getStatus) === null || _d === void 0 ? void 0 : _d.call(ex)) !== null && _e !== void 0 ? _e : 500).json({
-                message: ex.message
+        if (!((_e = (_d = (_c = this.options) === null || _c === void 0 ? void 0 : _c.filter) === null || _d === void 0 ? void 0 : _d.call(_c, ex, req, res)) !== null && _e !== void 0 ? _e : true)) {
+            return res.status((_g = (_f = ex.getStatus) === null || _f === void 0 ? void 0 : _f.call(ex)) !== null && _g !== void 0 ? _g : 500).json({
+                message: ex.message,
             });
         }
-        let msg = (_h = (_g = (_f = this.options) === null || _f === void 0 ? void 0 : _f.messageFormat) === null || _g === void 0 ? void 0 : _g.call(_f, ex, req, res)) !== null && _h !== void 0 ? _h : `[${ex.name}]`;
+        let msg = (_k = (_j = (_h = this.options) === null || _h === void 0 ? void 0 : _h.messageFormat) === null || _j === void 0 ? void 0 : _j.call(_h, ex, req, res)) !== null && _k !== void 0 ? _k : `[${ex.name}]`;
         let ref;
-        if ((_j = this.options) === null || _j === void 0 ? void 0 : _j.generateReference) {
-            ref = (0, crypto_1.randomBytes)(20).toString('base64url');
+        if ((_l = this.options) === null || _l === void 0 ? void 0 : _l.generateReference) {
+            ref = (0, crypto_1.randomBytes)(20).toString("base64url");
             const appendix = ` Error: ${ref}`;
             msg += appendix;
-            if (!res.locals)
-                res.locals = {};
-            res.locals.errorRef = ref;
+            res.header("X-Error-Ref", ref);
         }
-        const meta = (_m = (_l = (_k = this.options) === null || _k === void 0 ? void 0 : _k.exceptionMetaTransform) === null || _l === void 0 ? void 0 : _l.call(_k, ex, req, res)) !== null && _m !== void 0 ? _m : JSON.stringify(ex, null, 2);
-        logdna_service_1.LogDNAService.LogDNAServiceInstance().error(msg, meta);
-        return res.status((_p = (_o = ex.getStatus) === null || _o === void 0 ? void 0 : _o.call(ex)) !== null && _p !== void 0 ? _p : 500).send({
-            message: ex.message,
+        const meta = (_p = (_o = (_m = this.options) === null || _m === void 0 ? void 0 : _m.exceptionMetaTransform) === null || _o === void 0 ? void 0 : _o.call(_m, ex, req, res)) !== null && _p !== void 0 ? _p : {
             ref: ref,
-            exception: JSON.stringify(ex, null, 2),
+            name: ex.name,
+            message: ex.message,
+            stack: ex.stack,
+        };
+        logdna_service_1.LogDNAService.LogDNAServiceInstance().error(msg, meta);
+        return res.status((_r = (_q = ex.getStatus) === null || _q === void 0 ? void 0 : _q.call(ex)) !== null && _r !== void 0 ? _r : 500).send({
+            ref: ref,
         });
     }
 };

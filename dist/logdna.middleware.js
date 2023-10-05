@@ -9,7 +9,7 @@ function LogDNAhttpLogger(options) {
         const { method, url } = req;
         var end = res.end;
         res.end = function (chunk, encoding) {
-            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j;
             const duration = Date.now() - begin;
             res.end = end;
             res.end(chunk, encoding);
@@ -18,23 +18,24 @@ function LogDNAhttpLogger(options) {
             }
             const { statusCode } = res;
             let msg = (_d = (_c = options === null || options === void 0 ? void 0 : options.messageFormat) === null || _c === void 0 ? void 0 : _c.call(options, req, res)) !== null && _d !== void 0 ? _d : `[${method}] ${url} ${statusCode} ${duration}ms`;
-            if ((_e = res.locals) === null || _e === void 0 ? void 0 : _e.errorRef) {
-                msg += ` Error: ${res.locals.errorRef}`;
+            const errorRef = res.getHeader("X-Error-Ref");
+            if (errorRef) {
+                msg += ` Error: ${errorRef}`;
             }
             let body;
             if (chunk) {
-                const contentType = (_f = res.getHeader('content-type')) === null || _f === void 0 ? void 0 : _f.toString();
-                if (contentType === null || contentType === void 0 ? void 0 : contentType.includes('text')) {
+                const contentType = (_e = res.getHeader("content-type")) === null || _e === void 0 ? void 0 : _e.toString();
+                if (contentType === null || contentType === void 0 ? void 0 : contentType.includes("text")) {
                     body = chunk.toString();
                 }
-                else if (contentType === null || contentType === void 0 ? void 0 : contentType.includes('json')) {
+                else if (contentType === null || contentType === void 0 ? void 0 : contentType.includes("json")) {
                     body = safeJSONParse(chunk.toString());
                 }
             }
             const defaultReqDTO = reqDTO(req);
             const defaultResDTO = resDTO(res, body);
-            const reqMeta = (_h = (_g = options === null || options === void 0 ? void 0 : options.reqMetaTransform) === null || _g === void 0 ? void 0 : _g.call(options, req, defaultReqDTO)) !== null && _h !== void 0 ? _h : defaultReqDTO;
-            const resMeta = (_k = (_j = options === null || options === void 0 ? void 0 : options.resMetaTransform) === null || _j === void 0 ? void 0 : _j.call(options, res, defaultResDTO)) !== null && _k !== void 0 ? _k : defaultResDTO;
+            const reqMeta = (_g = (_f = options === null || options === void 0 ? void 0 : options.reqMetaTransform) === null || _f === void 0 ? void 0 : _f.call(options, req, defaultReqDTO)) !== null && _g !== void 0 ? _g : defaultReqDTO;
+            const resMeta = (_j = (_h = options === null || options === void 0 ? void 0 : options.resMetaTransform) === null || _h === void 0 ? void 0 : _h.call(options, res, defaultResDTO)) !== null && _j !== void 0 ? _j : defaultResDTO;
             logdna_service_1.LogDNAService.LogDNAServiceInstance().http(msg, reqMeta, resMeta);
         };
         next();
