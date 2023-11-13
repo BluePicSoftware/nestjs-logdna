@@ -35,6 +35,7 @@ export class LogDNAhttpExceptionLogger {
     };
     LogDNAService.LogDNAServiceInstance().error(msg, meta);
     return res.status(ex.getStatus?.() ?? 500).send({
+      message: ex.message,
       ref: ref,
     });
   }
