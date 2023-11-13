@@ -46,6 +46,7 @@ let LogDNAhttpExceptionLogger = class LogDNAhttpExceptionLogger {
         };
         logdna_service_1.LogDNAService.LogDNAServiceInstance().error(msg, meta);
         return res.status((_r = (_q = ex.getStatus) === null || _q === void 0 ? void 0 : _q.call(ex)) !== null && _r !== void 0 ? _r : 500).send({
+            message: ex.message,
             ref: ref,
         });
     }
