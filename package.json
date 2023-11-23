@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "@logdna/logger": "^2.6.5",
-    "@nestjs/common": "^10.2.7",
-    "@nestjs/core": "^10.2.7",
+    "@nestjs/common": "^10.2.8",
+    "@nestjs/core": "^10.2.8",
     "@supercharge/request-ip": "^1.2.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5"
