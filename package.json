@@ -26,7 +26,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@logdna/logger": "^2.6.5",
+    "@logdna/logger": "^2.6.8",
     "@nestjs/common": "^10.2.7",
     "@nestjs/core": "^10.2.7",
     "@supercharge/request-ip": "^1.2.0",
